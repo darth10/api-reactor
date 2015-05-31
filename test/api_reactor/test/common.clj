@@ -1,4 +1,4 @@
-(ns api-reactor.test-common
+(ns api-reactor.test.common
   (:require [api-reactor.main :as main]
             [clojure.data.json :refer [read-str]]))
 
