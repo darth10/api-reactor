@@ -10,7 +10,6 @@
 
 (defn app [req]
   (log/info (str (:request-method req) " -> " (:uri req)))
-  ;; (info (str (:headers req)))
   (pp/pprint (:headers req))
   {:status  200
    :headers {"Content-Type" "text/plain"}

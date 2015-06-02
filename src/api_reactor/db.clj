@@ -16,9 +16,7 @@
   (let [opt-str ""                      ; TODO
         query-str (str "select * from " table
                        " " opt-str)]
-    (try
-      (jdbc/query db [query-str])
-      (catch SQLException se se))))
+    (jdbc/query db [query-str])))
 
 (defn get-entity
   "TODO"
@@ -27,16 +25,12 @@
     :or   {p-key-column (:default-p-key db)}}]
   (let [query-str (str "select * from " table
                        " where " p-key-column " = ?")]
-    (try
-      (first (jdbc/query db [query-str p-key]))
-      (catch SQLException se se))))
+    (first (jdbc/query db [query-str p-key]))))
 
 (defn create-entity!
   "TODO"
   [db table & entities-and-columns]
-  (try
-    (apply jdbc/insert! db (symbol table) entities-and-columns)
-    (catch SQLException se se)))
+  (apply jdbc/insert! db (symbol table) entities-and-columns))
 
 (defn update-entity!
   "TODO"
@@ -45,10 +39,8 @@
     :or   {p-key-column (:default-p-key db)}}]
   (let [where-str (str p-key-column " = ?")
         table-sym (symbol table)]
-    (try
-      (jdbc/update! db table-sym entity
-                    [where-str p-key])
-      (catch SQLException se se))))
+    (jdbc/update! db table-sym entity
+                  [where-str p-key])))
 
 (defn delete-entity!
   "TODO"
@@ -57,7 +49,5 @@
     :or   {p-key-column (:default-p-key db)}}]
   (let [where-str (str p-key-column " = ?")
         table-sym (symbol table)]
-    (try
-      (jdbc/delete! db table-sym
-                    [where-str p-key])
-      (catch SQLException se se))))
+    (jdbc/delete! db table-sym
+                  [where-str p-key])))
