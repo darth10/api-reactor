@@ -2,29 +2,28 @@
   (:gen-class)
   (:require [clojure.pprint :as pp]
             [org.httpkit.server :as http-kit]
-            [api-reactor.config :as conf]
+            [ring.middleware.json :as json]
             [clojure.tools.logging :as log]
-            [clojure.tools.cli :refer [cli]]))
+            [clojure.tools.cli :refer [cli]]
+            [api-reactor.config :as conf]
+            [api-reactor.middleware :as middleware]))
 
 (defonce server (atom nil))
 
-(defn app [req]
-  (log/info (str (:request-method req) " -> " (:uri req)))
-  (pp/pprint (:headers req))
-  {:status  200
-   :headers {"Content-Type" "text/plain"}
-   :body    (concat "hello HTTP '" (:uri req) "' !")})
+(defn app []
+  (-> middleware/api-reactor-middleware
+      (json/wrap-json-response)))
 
 (defn start-server [port thread]
   (when-not (nil? @server) (@server))   ; stop server
   (reset! server
-          (http-kit/run-server app
+          (http-kit/run-server (app)
                                {:port port
                                 :thread thread})))
 
 (defn- to-int [s] (Integer/parseInt s))
 
-(defn print-and-exit
+(defn- print-and-exit
   [banner]
   (println banner)
   (System/exit 0))
