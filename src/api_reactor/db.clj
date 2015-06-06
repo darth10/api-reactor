@@ -1,12 +1,5 @@
 (ns api-reactor.db
-  (:import [java.sql SQLException])
   (:require [clojure.java.jdbc :as jdbc]))
-
-(def mysql-db {:subprotocol "mysql"
-               :subname "//127.0.0.1:3306/slimdb"
-               :user "phinxuser"
-               :password "password"
-               :default-p-key "id"})
 
 ;;; TODO doc strings
 

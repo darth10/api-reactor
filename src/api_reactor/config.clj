@@ -10,3 +10,10 @@
 
 (defn set-config [options]
   (swap! app-configs merge options))
+
+(defn get-db-config []                  ; TODO
+  {:subprotocol "mysql"
+   :subname "//127.0.0.1:3306/slimdb"
+   :user "phinxuser"
+   :password "password"
+   :default-p-key "id"})
