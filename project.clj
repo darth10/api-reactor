@@ -1,5 +1,5 @@
 (defproject api-reactor "0.0.1-SNAPSHOT"
-  :description "Automagical REST API server"
+  :description "An automagical REST API server"
   :url "https://github.com/darth10/api-reactor"
   :license {:name "MIT"}
   :main api-reactor.main
